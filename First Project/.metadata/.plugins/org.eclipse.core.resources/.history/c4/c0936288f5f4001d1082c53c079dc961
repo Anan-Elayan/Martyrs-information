@@ -1,0 +1,444 @@
+package Martyrs;
+
+import java.awt.RadialGradientPaint;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TablePosition;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.cell.TextFieldTreeTableCell;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.util.converter.CharacterStringConverter;
+import javafx.util.converter.IntegerStringConverter;
+
+public class MartyrPane extends Pane {
+
+	private Label lblName = new Label("Name");
+	private Label lblAge = new Label("Age");
+	private Label lblDate = new Label("Date deth");
+	private Label lblGender = new Label("Gender");
+	private Label lblstatus = new Label("Status");
+	private Label lblLocatione = new Label("Locatione");
+	private Label lblWelcome = new Label("Welcome to  martyrs Info");
+
+	private TextField txtName = new TextField();
+	private TextField txtAge = new TextField();
+	private TextField txtDate = new TextField();
+
+//	private TextField txtGender = new TextField();
+//	private TextField txtStatsu = new TextField();
+
+	private RadioButton femal = new RadioButton("Femal");
+	private RadioButton Male = new RadioButton("Male");
+	private RadioButton singel = new RadioButton("Singel");
+	private RadioButton maread = new RadioButton("Mared");
+	private ToggleGroup group = new ToggleGroup();
+
+	private TextField txtLocation = new TextField();
+	private TextField searchName = new TextField();
+
+	private String lblStyle = "-fx-text-fill:cd9b05;-fx-font-size:15";
+	private String btnStyle = "-fx-background-color:black;" + "-fx-border-color:white;"
+			+ "-fx-background-radius:10 50 10 50;" + "-fx-border-radius:10 50 10 50;" + "-fx-text-fill:f2bd12";
+
+	private Button btnInsert = new Button("Insert");
+	private Button btnDelete = new Button("Delete");
+	private Button btnUpdate = new Button("Update ");
+	private Button btnSearch = new Button("Search ");
+
+	private TableView<Martyrs> tableView = new TableView<Martyrs>();
+	private TableColumn<Martyrs, String> name = new TableColumn<Martyrs, String>("Name");
+	private TableColumn<Martyrs, String> age = new TableColumn<Martyrs, String>("Age");
+	private TableColumn<Martyrs, Date> dateOfDeath = new TableColumn<Martyrs, Date>("Date Of Death");
+	private TableColumn<Martyrs, Character> gender = new TableColumn<Martyrs, Character>("Gender");
+	private TableColumn<Martyrs, String> personalStatus = new TableColumn<Martyrs, String>("Status");
+	private Font font = Font.font("Bernard MT Condensed", FontPosture.REGULAR, 29);
+
+	private Pane tablePane = new Pane();
+	private Pane fildesPane = new Pane();
+	NodeDoubleLinkedList locNode;
+
+	public MartyrPane(NodeDoubleLinkedList locNode) {
+		this.locNode = locNode;
+		name.setCellValueFactory(new PropertyValueFactory<>("name"));
+		age.setCellValueFactory(new PropertyValueFactory<>("age"));
+		dateOfDeath.setCellValueFactory(new PropertyValueFactory<>("dateOfDeath"));
+		dateOfDeath.setCellFactory(col -> {
+			TableCell<Martyrs, Date> cell = new TableCell<Martyrs, Date>() {
+				private SimpleDateFormat format = new SimpleDateFormat("M/d/yyyy");
+
+				@Override
+				protected void updateItem(Date item, boolean empty) {
+					super.updateItem(item, empty);
+					if (empty) {
+						setText(null);
+					} else {
+						setText(format.format(item));
+					}
+				}
+			};
+			return cell;
+		});
+
+		gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+		personalStatus.setCellValueFactory(new PropertyValueFactory<>("personalStatus"));
+		tableView.getColumns().addAll(name, age, dateOfDeath, gender, personalStatus);
+		this.tablePane.getChildren().addAll(lblLocatione, searchName, tableView);
+		this.tableView.setLayoutY(100);
+		this.tableView.setPrefWidth(500);
+		this.tableView.setPrefHeight(330);
+
+		NodeSigleLinkedList current = this.locNode.getListMartyrs().getFirst();
+		for (int i = 0; i < this.locNode.getListMartyrs().size(); ++i) {
+			tableView.getItems().add(current.getObjMartyrs());
+			current = current.getNext();
+		}
+
+//		editableCols();
+
+		lblLocatione.setText("Welcome to  martyrs " + locNode.getLocation() + " Records");
+		lblLocatione.setStyle("-fx-text-fill:white");
+		lblLocatione.setFont(font);
+		lblLocatione.setLayoutX(25);
+		lblLocatione.setLayoutY(15);
+
+		searchName.setPromptText("Part of name");
+		searchName.setPrefHeight(25);
+		searchName.setPrefWidth(370);
+		searchName.setLayoutX(25);
+		searchName.setLayoutY(55);
+
+		lblName.setStyle(lblStyle);
+		lblName.setLayoutX(25);
+		lblName.setLayoutY(100);
+		txtName.setPrefHeight(25);
+		txtName.setPrefWidth(330);
+		txtName.setLayoutX(100);
+		txtName.setLayoutY(100);
+
+		lblAge.setStyle(lblStyle);
+		lblAge.setLayoutX(25);
+		lblAge.setLayoutY(150);
+		txtAge.setPrefHeight(25);
+		txtAge.setPrefWidth(330);
+		txtAge.setLayoutX(100);
+		txtAge.setLayoutY(150);
+
+		lblDate.setStyle(lblStyle);
+		lblDate.setLayoutX(25);
+		lblDate.setLayoutY(200);
+		txtDate.setPrefHeight(25);
+		txtDate.setPrefWidth(330);
+		txtDate.setLayoutX(100);
+		txtDate.setLayoutY(200);
+
+		lblGender.setStyle(lblStyle);
+		lblGender.setLayoutX(25);
+		lblGender.setLayoutY(250);
+//		txtGender.setPrefHeight(25);
+//		txtGender.setPrefWidth(330);
+//		txtGender.setLayoutX(100);
+//		txtGender.setLayoutY(250);
+//
+//		lblstatus.setStyle(lblStyle);
+//		lblstatus.setLayoutX(25);
+//		lblstatus.setLayoutY(300);
+//		txtStatsu.setPrefHeight(25);
+//		txtStatsu.setPrefWidth(330);
+//		txtStatsu.setLayoutX(100);
+//		txtStatsu.setLayoutY(300);
+
+		femal.setLayoutX(25);
+		femal.setLayoutY(250);
+		Male.setLayoutX(25);
+		Male.setLayoutY(300);
+		femal.setToggleGroup(group);
+		Male.setToggleGroup(group);
+
+		singel.setLayoutX(100);
+		singel.setLayoutY(300);
+		maread.setLayoutX(140);
+		maread.setLayoutY(300);
+
+		Font font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+
+		btnInsert.setStyle(btnStyle);
+		btnInsert.setFont(font);
+		btnInsert.setPrefHeight(27);
+		btnInsert.setPrefWidth(102);
+		btnInsert.setLayoutX(400);
+		btnInsert.setLayoutY(465);
+
+		btnDelete.setStyle(btnStyle);
+		btnDelete.setFont(font);
+		btnDelete.setPrefHeight(27);
+		btnDelete.setPrefWidth(102);
+		btnDelete.setLayoutX(270);
+		btnDelete.setLayoutY(465);
+
+		btnUpdate.setStyle(btnStyle);
+		btnUpdate.setFont(font);
+		btnUpdate.setPrefHeight(27);
+		btnUpdate.setPrefWidth(102);
+		btnUpdate.setLayoutX(10);
+		btnUpdate.setLayoutY(465);
+
+		btnSearch.setStyle(btnStyle);
+		btnSearch.setFont(font);
+		btnSearch.setPrefHeight(27);
+		btnSearch.setPrefWidth(102);
+		btnSearch.setLayoutX(137);
+		btnSearch.setLayoutY(465);
+
+		tablePane.setVisible(true);
+		fildesPane.setVisible(false);
+		lblLocatione.setVisible(true);
+		setActions();
+		btnUpdate.setVisible(false);
+
+		this.fildesPane.getChildren().addAll(lblName, txtName, lblAge, txtAge, lblDate, txtDate, lblGender, femal, Male,
+				lblstatus, singel, maread);
+
+		this.getChildren().addAll(lblLocatione, this.fildesPane, this.tablePane, btnInsert, btnDelete, btnSearch,
+				btnUpdate);
+
+	}
+
+	// method action
+	@SuppressWarnings("unchecked")
+	private void setActions() {
+		try {
+			tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+				DateFormat format = new SimpleDateFormat("M/d/yyyy");
+
+				@Override
+				public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
+					int index = tableView.getSelectionModel().getSelectedIndex();
+					if (index <= -1)
+						return;
+					if (tableView.getSelectionModel().getSelectedItem() != null) {
+						Martyrs selectionModel = tableView.getSelectionModel().getSelectedItem();
+						String d = format.format(selectionModel.getDateOfDeath());
+
+						fildesPane.setVisible(true);
+						tablePane.setVisible(false);
+						btnUpdate.setVisible(true);
+						txtName.setText(selectionModel.getName());
+						txtAge.setText(String.valueOf(selectionModel.getAge()));
+						txtDate.setText(d);
+						if (Male.isSelected()) {
+
+							selectionModel.setGender('M');
+						} else {
+							selectionModel.setGender('F');
+
+						}
+//							txtStatsu.setText(selectionModel.getPersonalStatus());
+
+							btnUpdate.setOnAction(e -> {
+								int age = 0;
+								try {
+									age = Integer.parseInt(txtAge.getText().trim());
+									selectionModel.setAge(age);
+								} catch (NumberFormatException et) {
+									new Warning("Invalid age");
+									return;
+								}
+								SimpleDateFormat format2 = new SimpleDateFormat("M/d/yyyy");
+								selectionModel.setName(txtName.getText().trim());
+								try {
+									Date dod = format2.parse(txtDate.getText().trim());
+									selectionModel.setDateOfDeath(dod);
+								} catch (Exception ex) {
+									new Warning("Invalid DOD");
+									return;
+								}
+								if (Male.isSelected()) {
+
+									selectionModel.setGender('M');
+								} else {
+									selectionModel.setGender('F');
+
+								}
+								tableView.refresh();
+								new Warning("Updated Successfuly");
+							});
+						}
+
+					}
+				
+			});
+		
+
+		btnInsert.setOnAction(e2 -> {
+			if (!fildesPane.isVisible()) {
+				tablePane.setVisible(false);
+				fildesPane.setVisible(true);
+				btnUpdate.setVisible(false);
+				txtDate.clear();
+				maread.setSelected(false);
+				singel.setSelected(false);
+//				txtGender.clear();
+//				txtStatsu.clear();
+				txtName.clear();
+				txtAge.clear();
+				return;
+			}
+			if (lblDate.isVisible() == false || lblGender.isVisible() == false || lblstatus.isVisible() == false
+					|| txtDate.isVisible() == false || singel.isVisible() == false || maread.isVisible() == false) {
+				lblDate.setVisible(true);
+				lblGender.setVisible(true);
+				lblstatus.setVisible(true);
+				txtDate.setVisible(true);
+				singel.setVisible(true);
+				maread.setVisible(true);
+
+			}
+			if (this.locNode.getListMartyrs() != null) {
+				if (txtName.getText().isEmpty() || txtAge.getText().isEmpty() || txtDate.getText().isEmpty()
+						|| maread.getText().isEmpty() || singel.getText().isEmpty()) {
+					new Warning("Please set your info");
+				} else {
+					Martyrs mar = new Martyrs();
+					int age = 0;
+					try {
+						age = Integer.parseInt(txtAge.getText().trim());
+						mar.setAge(age);
+					} catch (NumberFormatException et) {
+						new Warning("Invalid age");
+						return;
+					}
+					SimpleDateFormat format2 = new SimpleDateFormat("M/d/yyyy");
+					mar.setName(txtName.getText().trim());
+					try {
+						Date dod = format2.parse(txtDate.getText().trim());
+						mar.setDateOfDeath(dod);
+					} catch (Exception ex) {
+						new Warning("Invalid DOD");
+						return;
+					}
+					
+					mar.setGender(txtGender.getText().trim().charAt(0));
+					mar.setPersonalStatus(txtStatsu.getText().trim());
+					locNode.getListMartyrs().addNodeSorted(new NodeSigleLinkedList(mar));
+					new Warning("Added successfully");
+					tableView.refresh();
+
+				}
+			} else {
+				new Warning("Not found this location");
+			}
+		});
+
+		btnDelete.setOnAction(e2 -> {
+			if (!fildesPane.isVisible()) {
+				btnUpdate.setVisible(false);
+				tablePane.setVisible(false);
+				fildesPane.setVisible(true);
+				txtName.setVisible(true);
+//				txtStatsu.setVisible(false);
+//				txtGender.setVisible(false);
+				txtAge.setVisible(true);
+				txtDate.setVisible(false);
+				lblDate.setVisible(false);
+				Male.setVisible(false);
+				femal.setVisible(false);
+				lblGender.setVisible(false);
+				maread.setVisible(false);
+				singel.setVisible(false);
+				lblstatus.setVisible(false);
+				return;
+			}
+			if (lblDate.isVisible() || lblGender.isVisible() || lblstatus.isVisible() || txtDate.isVisible()
+					|| femal.isVisible() || singel.isVisible() || Male.isVisible() || maread.isVisible()) {
+				lblDate.setVisible(false);
+				lblGender.setVisible(false);
+				lblstatus.setVisible(false);
+				txtDate.setVisible(false);
+				femal.setVisible(false);
+				Male.setVisible(false);
+				singel.setVisible(false);
+				maread.setVisible(false);
+
+			}
+
+			int age = 0;
+			try {
+				age = Integer.parseInt(txtAge.getText());
+			} catch (NumberFormatException e1) {
+				new Warning("Invalid age format");
+			}
+			if (txtName.getText().isEmpty() || txtAge.getText().isEmpty()) {
+				new Warning("Please set your info");
+				return;
+			}
+			if (locNode.getListMartyrs().size() == 0) {
+				new Warning("NO record for this location");
+			} else {
+				Martyrs martyrs = new Martyrs(txtName.getText(), age);
+				boolean isDeleted = locNode.getListMartyrs().removObj(new NodeSigleLinkedList(martyrs));
+				if (isDeleted) {
+					new Warning("Deleted successfully");
+					tableView.refresh();
+				} else {
+					new Warning("This recorde not exists");
+				}
+			}
+		});
+
+		btnSearch.setOnAction(e2 -> {
+			btnUpdate.setVisible(false);
+			tablePane.setVisible(true);
+			fildesPane.setVisible(false);
+			lblLocatione.setVisible(true);
+			lblLocatione.setLayoutX(25);
+			lblLocatione.setLayoutY(15);
+		});
+
+		searchName.setOnAction(e -> {
+			String name = searchName.getText().trim();
+			SingelLinkedList list;
+			if (name.isEmpty()) {
+				list = locNode.getListMartyrs();
+				new Warning("All records are loaded");
+			} else {
+				list = locNode.getListMartyrs().search(name);
+			}
+			if (list.size() != 0) {
+				this.tableView.getItems().clear();
+				NodeSigleLinkedList currentmar = list.getFirst();
+				while (currentmar != null) {
+					tableView.getItems().add(currentmar.getObjMartyrs());
+					currentmar = currentmar.getNext();
+				}
+			} else {
+				this.tableView.getItems().clear();
+				new Warning("Not Found Thes name");
+			}
+			searchName.clear();
+		});
+
+		}
+	}
+}
+
+}
+

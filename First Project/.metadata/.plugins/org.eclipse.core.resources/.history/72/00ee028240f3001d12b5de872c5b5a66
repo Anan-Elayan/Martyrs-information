@@ -1,0 +1,93 @@
+package Martyrs;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+
+public class MainVeiw extends Pane {
+
+	Pane pkGround;
+	Pane lftPane = new Pane();
+	VBox vbox = new VBox(15);
+	Button btnLocation = new Button("Location");
+	Button btnMartyrs = new Button("Martyrs");
+	Button btnStatistic = new Button("Statsitc");
+	Button btnSave = new Button("Save");
+
+	Label lblLocatione = new Label("Locatione");
+	TextField txtLocation = new TextField();
+	private String btnStyle = "-fx-background-color:black;-fx-text-fill:f2bd12;-fx-border-radius:15;-fx-background-radius:15";
+
+	public MainVeiw() {
+
+		pkGround = this;
+		//btnMartyrs.setDisable(true);
+		btnStatistic.setDisable(true);
+
+		lftPane.setStyle("-fx-background-color:white;-fx-background-radius:0 30 30 0");
+		lftPane.setPrefHeight(500);
+		lftPane.setPrefWidth(200);
+		vbox.setPrefHeight(347);
+		vbox.setPrefWidth(159);
+		vbox.setLayoutX(14);
+		vbox.setLayoutY(8);
+		vbox.setAlignment(Pos.CENTER);
+		vbox.setSpacing(55);
+		vbox.setPadding(new Insets(40, 0, 0, 0));
+
+		btnLocation.setStyle(btnStyle);
+
+		btnLocation.setPrefHeight(50);
+		btnLocation.setPrefWidth(110);
+		btnMartyrs.setStyle(btnStyle);
+
+		btnMartyrs.setPrefHeight(50);
+		btnMartyrs.setPrefWidth(110);
+		btnStatistic.setStyle(btnStyle);
+
+		btnStatistic.setPrefHeight(50);
+		btnStatistic.setPrefWidth(110);
+		btnSave.setStyle(btnStyle);
+		btnSave.setPrefHeight(50);
+		btnSave.setPrefWidth(110);
+
+		vbox.getChildren().addAll(btnLocation, btnMartyrs, btnStatistic, btnSave);
+		lftPane.getChildren().add(vbox);
+
+		this.setStyle("-fx-background-color:black");// background
+		Pane p = new Pane();
+		p.setStyle("-fx-background-color: red");
+		
+		p.setMinSize(500, 500);
+		p.setLayoutX(200);
+		
+		btnMartyrs.setOnAction(e -> {
+			p.getChildren().clear();
+			p.getChildren().add( new MartyrPane(null));
+		});
+
+		btnLocation.setOnAction(e -> {
+			p.getChildren().clear();
+			p.getChildren().add( new LocationPane());
+		});
+
+		btnStatistic.setOnAction(e -> {
+			p.getChildren().clear();
+			p.getChildren().add(new StaticticsPane(GUI.data.search(txtLocation.getText())));
+		});
+
+		btnSave.setOnAction(e -> {
+			p.getChildren().clear();
+			p.getChildren().add( new SavePane());
+		});
+
+		pkGround.getChildren().addAll(lftPane,p);
+
+	}
+
+}

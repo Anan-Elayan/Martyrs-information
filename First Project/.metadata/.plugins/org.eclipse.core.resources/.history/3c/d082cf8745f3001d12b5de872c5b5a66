@@ -1,0 +1,168 @@
+package Martyrs;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+
+public class LocationPane extends Pane {
+	private Button btnInsert = new Button("Insert");
+	private Button btnDelete = new Button("Delete");
+	private Button btnUpdate = new Button("Update ");
+	private Button btnSearch = new Button("Search ");
+	private Button btnSave;
+	private Label lblLocatione = new Label("Location");
+	private Label lblName;
+	private TextField txtNewName;
+	private TextField txtLocation = new TextField();
+
+	private String btnStyle = "-fx-background-color:black;" + "-fx-border-color:white;"
+			+ "-fx-background-radius:10 50 10 50;" + "-fx-border-radius:10 50 10 50;" + "-fx-text-fill:f2bd12";
+	private Font font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+
+	public LocationPane() {
+
+		lblLocatione.setStyle("-fx-text-fill:cd9b05;-fx-font-size:15");
+		lblLocatione.setLayoutX(25);
+		lblLocatione.setLayoutY(61);
+		txtLocation.setPrefHeight(25);
+		txtLocation.setPrefWidth(370);
+		txtLocation.setLayoutX(90);
+		txtLocation.setLayoutY(59);
+
+		btnInsert.setStyle(btnStyle);
+		btnInsert.setFont(font);
+		btnInsert.setPrefHeight(27);
+		btnInsert.setPrefWidth(102);
+		btnInsert.setLayoutX(400);
+		btnInsert.setLayoutY(400);
+
+		btnDelete.setStyle(btnStyle);
+		btnDelete.setFont(font);
+		btnDelete.setPrefHeight(27);
+		btnDelete.setPrefWidth(102);
+		btnDelete.setLayoutX(275);
+		btnDelete.setLayoutY(400);
+
+		btnUpdate.setStyle(btnStyle);
+		btnUpdate.setFont(font);
+		btnUpdate.setPrefHeight(27);
+		btnUpdate.setPrefWidth(102);
+		btnUpdate.setLayoutX(25);
+		btnUpdate.setLayoutY(400);
+
+		btnSearch.setStyle(btnStyle);
+		btnSearch.setFont(font);
+		btnSearch.setPrefHeight(27);
+		btnSearch.setPrefWidth(102);
+		btnSearch.setLayoutX(150);
+		btnSearch.setLayoutY(400);
+		setActions();
+		this.setLayoutX(20);
+		this.getChildren().addAll(lblLocatione, txtLocation, btnInsert, btnDelete, btnSearch, btnUpdate);
+
+	}
+
+	private void setActions() {
+		btnInsert.setOnAction(e2 -> {
+			if (txtNewName.isVisible() || lblName.isVisible() || btnSave.isVisible()) {
+				txtNewName.setVisible(false);
+				lblName.setVisible(false);
+				btnSave.setVisible(false);
+			}
+			if (txtLocation.getText().trim().isEmpty()) {
+				new Warning("\t    oooops!! \n Please write the Location");
+				return;
+			}
+			if (GUI.data.search(txtLocation.getText()) == null) {
+				NodeDoubleLinkedList node = new NodeDoubleLinkedList(txtLocation.getText());
+				GUI.data.addNodeSorted(node);
+				new Warning("Added Successfully");
+
+			} else {
+				new Warning("The Location is Existing");
+			}
+		});
+
+		btnDelete.setOnAction(e2 -> {
+			if (txtNewName.isVisible() || lblName.isVisible() || btnSave.isVisible()) {
+				txtNewName.setVisible(false);
+				lblName.setVisible(false);
+				btnSave.setVisible(false);
+			}
+			if (txtLocation.getText().trim().isEmpty()) {
+				new Warning("\t    oooops!! \n Please write the Location");
+			} else {
+				NodeDoubleLinkedList node = new NodeDoubleLinkedList(txtLocation.getText());
+
+				if (GUI.data.search(node.getLocation()) != null) {
+					GUI.data.removeObj(node);
+					new Warning("Deleted Successfully");
+
+				} else {
+					new Warning("Not Found Location");
+				}
+				GUI.data.printList();
+			}
+		});
+
+		btnUpdate.setOnAction(e2 -> {
+			lblName = new Label("New\nLocation");
+			lblName.setStyle("-fx-text-fill:cd9b05; -fx-font-size:15");
+			lblName.setLayoutX(25);
+			lblName.setLayoutY(98);
+
+			txtNewName = new TextField();
+			txtNewName.setPrefHeight(25);
+			txtNewName.setPrefWidth(370);
+			txtNewName.setLayoutX(90);
+			txtNewName.setLayoutY(98);
+
+			btnSave = new Button("Update Now");
+			// btnSave.setLayoutX(400);
+			// btnSave.setLayoutY(200);
+			btnSave.setStyle(btnStyle);
+			btnSave.setLayoutX(95);
+			btnSave.setLayoutY(150);
+			btnSave.setPrefWidth(350);
+
+			btnSave.setOnAction(e -> {
+				// String location = txtLocation.getText().trim();
+				if (txtLocation.getText().trim().isEmpty()) {
+					new Warning("Please enter the old name of the location");
+					return;
+				}
+				NodeDoubleLinkedList locationNode = GUI.data.search(txtLocation.getText());
+				if (locationNode != null) {
+					String newLocation = txtNewName.getText().trim();
+					if (newLocation.isEmpty()) {
+						new Warning("Please enter the new name");
+						return;
+					} else {
+						if (GUI.data.search(newLocation) != null) {
+							new Warning(newLocation + " is already exists");
+							return;
+						}
+						locationNode.setLocation(txtLocation.getText());
+						new Warning("Updated Succsessfully");
+						txtNewName.setVisible(false);
+						lblName.setVisible(false);
+						txtLocation.setText(newLocation);
+					}
+				} else {
+					new Warning("There are no location with name: " + txtLocation.getText());
+				}
+			});
+
+			this.getChildren().addAll(lblName, txtNewName, btnSave);
+		});
+
+		btnSearch.setOnAction(ew -> {
+
+			this.getChildren().clear();
+			this.getChildren().addAll(lblLocatione, txtLocation, btnInsert, btnDelete, btnSearch, btnUpdate);
+		});
+	}
+}

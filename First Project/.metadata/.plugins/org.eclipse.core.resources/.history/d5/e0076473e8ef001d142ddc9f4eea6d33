@@ -1,0 +1,215 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+public class Driver extends Application {
+
+	DoublLinkedList list = new DoublLinkedList();
+	BorderPane basePane = new BorderPane();
+	VBox centerVbox = new VBox(10);
+	HBox buttomHbox = new HBox(10);
+	Label lblname;
+	Label lblAge;
+	Label lblAverage;
+	TextField txtName = new TextField();
+	TextField txtAge = new TextField();
+	TextField txtAvg = new TextField();;
+	Button btnAdd;
+	Button btnremove;
+	Button btnModify;
+	Button  btnSaveFile;
+	Button btnNext = new Button("Next");
+	Button btnBack = new Button("Back");
+
+	File chooser;
+	int i=1;
+
+	@Override
+	public void start(Stage primaryStage) {
+
+		// top
+		MenuBar menuBar = new MenuBar();
+		Menu file = new Menu("File");
+		Menu home = new Menu("Home");
+		MenuItem item1 = new MenuItem("Choose file");
+		file.getItems().add(item1);
+
+		FileChooser fileChooser = new FileChooser();
+		item1.setOnAction(e -> {
+			chooser = fileChooser.showOpenDialog(primaryStage);
+			try (Scanner input = new Scanner(chooser)) {
+				while (input.hasNext()) {
+					String line = input.nextLine();
+					String[] partLine = line.split(" ");
+					String name = partLine[0];
+					int age = Integer.parseInt(partLine[1]);
+					double avg = Double.parseDouble(partLine[2]);
+					
+					list.addLast(new Student(name, age, avg));
+					
+					txtName.setText( list.get(1).getName());
+					txtAge.setText(String.valueOf(list.get(1).getAge()));
+					txtAvg.setText(String.valueOf(list.get(1).getAvg()));
+					
+				}
+				list.printList();
+
+			}
+
+			catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+
+		});
+
+		Menu exit = new Menu("Exit");
+		MenuItem item2 = new MenuItem("Exit");
+		exit.getItems().add(item2);
+		item2.setOnAction(e -> {
+			primaryStage.close();
+		});
+		MenuItem item3 = new MenuItem("Back to Home");
+		item3.setOnAction(e -> {
+			txtName.clear();
+			txtAge.clear();
+			txtAvg.clear();
+
+		});
+		home.getItems().add(item3);
+
+		btnNext.setVisible(true);
+		btnBack.setVisible(true);
+
+		menuBar.getMenus().addAll(file, home, exit);
+		basePane.setTop(menuBar);
+
+		// center
+		lblname = new Label("Name");
+		lblAge = new Label("Age");
+		lblAverage = new Label("Average");
+
+		centerVbox.setAlignment(Pos.CENTER);
+		BorderPane.setMargin(centerVbox, new Insets(0, 200, 0, 200));
+		HBox hbox = new HBox(5);
+		hbox.setAlignment(Pos.CENTER);
+		hbox.getChildren().addAll(btnBack, btnNext);
+		i = 1;
+
+		btnNext.setOnAction(e -> {
+			if (i<list.size()) {
+				i++;
+				
+			} else {
+				i=1;
+			}
+			if(list.size()!=0) {
+				txtName.setText(list.get(i).getName());
+				txtAge.setText(String.valueOf(list.get(i).getAge()));
+				txtAvg.setText(String.valueOf(list.get(i).getAvg()));
+			}
+
+		});
+
+		btnBack.setOnAction(e -> {
+			if (i>1) {
+				i--;
+
+			} else {
+				i=list.size();
+			}
+			if(list.size()!=0) {
+				System.out.println(i);
+				txtName.setText(list.get(i).getName());
+				txtAge.setText(String.valueOf(list.get(i).getAge()));
+				txtAvg.setText(String.valueOf(list.get(i).getAvg()));
+			}
+
+		});
+		centerVbox.getChildren().addAll(lblname, txtName, lblAge, txtAge, lblAverage, txtAvg, hbox);
+		basePane.setCenter(centerVbox);
+
+		// bottom
+		btnAdd = new Button("Add Student");
+		btnremove = new Button("Remove Student");
+		btnModify = new Button("Modify Student");
+		btnSaveFile = new Button("Save");
+		buttomHbox.setPadding(new Insets(0, 0, 10, 0));
+		buttomHbox.setAlignment(Pos.CENTER);
+
+		btnAdd.setOnAction(e ->
+		{
+			try {
+				PrintWriter write = new PrintWriter(chooser);
+				Student studentObject = new Student(txtName.getText(), Integer.parseInt(txtAge.getText()),
+						Double.parseDouble(txtAvg.getText()));
+
+				list.addLast(studentObject);
+				write.close();
+
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			list.printList();
+
+		});
+
+		// Action remove;
+		btnremove.setOnAction(e -> {
+			list.removeObj(list.get(txtName.getText()));
+			i--;
+			list.printList();
+		});
+
+		// action Modify
+		btnModify.setOnAction(e -> {
+			list.get(i).setName(txtName.getText());
+			list.get(i).setAge(Integer.parseInt(txtAge.getText()));
+			list.get(i).setAvg(Double.parseDouble(txtAvg.getText()));
+			list.printList();
+
+		});
+
+		btnSaveFile.setOnAction(e->{
+			try {
+				PrintWriter write = new PrintWriter(chooser);
+				for (int i = 1; i <= list.size(); i++) {
+					write.append(list.get(i).toString());
+					write.append("\n");
+				}
+				write.close();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
+		
+		buttomHbox.getChildren().addAll(btnAdd, btnremove, btnModify,btnSaveFile);
+		basePane.setBottom(buttomHbox);
+
+		// stage and Scene
+		Scene scene = new Scene(basePane, 700, 500);
+		primaryStage.setTitle("Student system");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+
+	public static void main(String[] args) {
+		launch(args);
+	}
+}

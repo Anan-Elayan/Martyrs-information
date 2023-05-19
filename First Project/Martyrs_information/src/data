@@ -1,0 +1,913 @@
+	// by average
+			rdButton4.setOnAction(e2 -> {
+
+				if (txtArea.getText() != null) {
+					txtArea.clear();
+				}
+				lblAgeStatic.setText("The Avg is");
+				txtAgeStatic.setVisible(false);
+				lblAgeStatic.setVisible(false);
+				txtArea.setVisible(true);
+				lblLocatione.setVisible(true);
+				txtLocation.setVisible(true);
+				lblLocatione.setLayoutX(215);
+				lblLocatione.setLayoutY(10);
+				txtLocation.setLayoutX(300);
+				txtLocation.setLayoutY(10);
+				txtAgeStatic.setLayoutX(300);
+				txtAgeStatic.setLayoutY(100);
+				lblAgeStatic.setLayoutX(230);
+				lblAgeStatic.setLayoutY(100);
+				lblAgeStatic.setStyle("-fx-text-fill:#cd9b05;-fx-font-size:12");
+
+				txtArea.setPrefHeight(320);
+				txtArea.setPrefWidth(450);
+				txtArea.setLayoutY(130);
+				txtArea.setLayoutX(230);
+				btnPev.setVisible(true);
+				btnNext.setVisible(true);
+
+				btnPev.setStyle(
+						"-fx-background-color:black;-fx-border-color:white;-fx-background-radius:10 50 10 50;-fx-border-radius:10 50 10 50;-fx-text-fill:f2bd12");
+				font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+				btnPev.setFont(font);
+				btnPev.setLayoutY(460);
+				btnPev.setLayoutX(250);
+
+				btnNext.setStyle(
+						"-fx-background-color:black;-fx-border-color:white;-fx-background-radius:10 50 10 50;-fx-border-radius:10 50 10 50;-fx-text-fill:f2bd12");
+				font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+				btnNext.setFont(font);
+				btnNext.setLayoutY(460);
+				btnNext.setLayoutX(600);
+
+				if (txtLocation.getText().isEmpty()) {
+					txtArea.setVisible(false);
+					btnNext.setVisible(false);
+					btnPev.setVisible(false);
+					lblAgeStatic.setVisible(false);
+					txtAgeStatic.setVisible(false);
+					new Warning("Please enter the location");
+				} else {
+					NodeDoubleLinkedList nodeDouble = GUI.data.search(txtLocation.getText());
+					if (nodeDouble == null) {
+						txtArea.setVisible(false);
+						btnNext.setVisible(true);
+						btnPev.setVisible(true);
+						lblAgeStatic.setVisible(false);
+						txtAgeStatic.setVisible(false);
+						new Warning("Not Found this Location");
+					} else {
+						if (GUI.data.search(txtLocation.getText()) == null) {
+							txtArea.setVisible(false);
+							btnNext.setVisible(true);
+							btnPev.setVisible(true);
+							lblAgeStatic.setVisible(false);
+							txtAgeStatic.setVisible(false);
+							new Warning("Not Found this Location");
+						} else {
+							txtAgeStatic.setOnAction(r -> {
+								int countAge = 0;
+								int avg = 0;
+								NodeSigleLinkedList s = nodeDouble.getListMartyrs().getFirst();
+								for (int j = 0; j < nodeDouble.getListMartyrs().size(); j++) {
+									;
+									countAge += s.getObjMartyrs().getAge();
+									s = s.getNext();
+								}
+								avg = countAge / nodeDouble.getListMartyrs().size();
+								txtArea.setText("The avg = " + " --> " + String.valueOf(avg));
+
+							});
+						}
+					}
+
+				}
+			});
+			
+		// by data of death
+			rdButton3.setOnAction(e2 -> {
+
+				if (txtArea.getText() != null) {
+					txtArea.clear();
+				}
+				lblAgeStatic.setText("Enter Date");
+				txtAgeStatic.setVisible(false);
+				lblAgeStatic.setVisible(false);
+				txtArea.setVisible(true);
+				lblLocatione.setVisible(true);
+				txtLocation.setVisible(true);
+				lblLocatione.setLayoutX(215);
+				lblLocatione.setLayoutY(10);
+				txtLocation.setLayoutX(300);
+				txtLocation.setLayoutY(10);
+
+				txtAgeStatic.setLayoutX(300);
+				txtAgeStatic.setLayoutY(100);
+				lblAgeStatic.setLayoutX(230);
+				lblAgeStatic.setLayoutY(100);
+				lblAgeStatic.setStyle("-fx-text-fill:#cd9b05;-fx-font-size:12");
+
+				txtArea.setPrefHeight(320);
+				txtArea.setPrefWidth(450);
+				txtArea.setLayoutY(130);
+				txtArea.setLayoutX(230);
+				btnPev.setVisible(true);
+				btnNext.setVisible(true);
+
+				btnPev.setStyle(
+						"-fx-background-color:black;-fx-border-color:white;-fx-background-radius:10 50 10 50;-fx-border-radius:10 50 10 50;-fx-text-fill:f2bd12");
+				font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+				btnPev.setFont(font);
+				btnPev.setLayoutY(460);
+				btnPev.setLayoutX(250);
+
+				btnNext.setStyle(
+						"-fx-background-color:black;-fx-border-color:white;-fx-background-radius:10 50 10 50;-fx-border-radius:10 50 10 50;-fx-text-fill:f2bd12");
+				font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+				btnNext.setFont(font);
+				btnNext.setLayoutY(460);
+				btnNext.setLayoutX(600);
+
+				if (txtLocation.getText().isEmpty()) {
+					txtArea.setVisible(false);
+					btnNext.setVisible(false);
+					btnPev.setVisible(false);
+					lblAgeStatic.setVisible(false);
+					txtAgeStatic.setVisible(false);
+					new Warning("Please enter the location");
+				} else {
+					if (GUI.data.search(txtLocation.getText()) == null) {
+						txtArea.setVisible(false);
+						btnNext.setVisible(true);
+						btnPev.setVisible(true);
+						lblAgeStatic.setVisible(false);
+						txtAgeStatic.setVisible(false);
+						new Warning("Not Found this Location");
+					}
+				}
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			rdButton2.setOnAction(e2 -> {
+
+				if (txtArea.getText() != null) {
+					txtArea.clear();
+				}
+				lblAgeStatic.setText("Enter Gnder");
+				txtAgeStatic.setVisible(false);
+				lblAgeStatic.setVisible(false);
+				txtArea.setVisible(true);
+				lblLocatione.setVisible(true);
+				txtLocation.setVisible(true);
+				lblLocatione.setLayoutX(215);
+				lblLocatione.setLayoutY(10);
+				txtLocation.setLayoutX(300);
+				txtLocation.setLayoutY(10);
+
+				txtAgeStatic.setLayoutX(300);
+				txtAgeStatic.setLayoutY(100);
+				lblAgeStatic.setLayoutX(230);
+				lblAgeStatic.setLayoutY(100);
+				lblAgeStatic.setStyle("-fx-text-fill:#cd9b05;-fx-font-size:12");
+
+				txtArea.setPrefHeight(320);
+				txtArea.setPrefWidth(450);
+				txtArea.setLayoutY(130);
+				txtArea.setLayoutX(230);
+				btnPev.setVisible(true);
+				btnNext.setVisible(true);
+
+				btnPev.setStyle(
+						"-fx-background-color:black;-fx-border-color:white;-fx-background-radius:10 50 10 50;-fx-border-radius:10 50 10 50;-fx-text-fill:f2bd12");
+				font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+				btnPev.setFont(font);
+				btnPev.setLayoutY(460);
+				btnPev.setLayoutX(250);
+
+				btnNext.setStyle(
+						"-fx-background-color:black;-fx-border-color:white;-fx-background-radius:10 50 10 50;-fx-border-radius:10 50 10 50;-fx-text-fill:f2bd12");
+				font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+				btnNext.setFont(font);
+				btnNext.setLayoutY(460);
+				btnNext.setLayoutX(600);
+
+				if (txtLocation.getText().isEmpty()) {
+					txtArea.setVisible(false);
+					btnNext.setVisible(false);
+					btnPev.setVisible(false);
+					lblAgeStatic.setVisible(false);
+					txtAgeStatic.setVisible(false);
+					new Warning("Please enter the location");
+				} else {
+					NodeDoubleLinkedList nodeDouble = GUI.data.search(txtLocation.getText());
+					if (nodeDouble == null) {
+
+						txtArea.setVisible(false);
+						btnNext.setVisible(true);
+						btnPev.setVisible(true);
+						lblAgeStatic.setVisible(false);
+						txtAgeStatic.setVisible(false);
+						new Warning("Not Found this Location");
+					} else {
+						txtAgeStatic.setOnAction(r -> {
+							int countGender = 0;
+							NodeSigleLinkedList s = nodeDouble.getListMartyrs().getFirst();
+							for (int j = 0; j < nodeDouble.getListMartyrs().size(); j++) {
+								if (s.getObjMartyrs().getGender() == txtAgeStatic.getText().charAt(0)) {
+									countGender++;
+								}
+								s = s.getNext();
+							}
+							txtArea.setText("Number of Martyrs by Age " + txtAgeStatic.getText() + " --> "
+									+ String.valueOf(countGender));
+
+						});
+					}
+				}
+			});	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			rdButton1.setOnAction(e2 -> {
+				txtAgeStatic.setVisible(false);
+				lblAgeStatic.setVisible(false);
+				if (txtArea.getText() != null) {
+					txtArea.clear();
+				}
+
+				lblLocatione.setVisible(true);
+				txtLocation.setVisible(true);
+
+				lblAgeStatic.setText("Enter Age");
+
+				if (txtAgeStatic.isVisible() == true || lblAgeStatic.isVisible() == true || txtArea.isVisible() == false
+						|| txtAreaMartyrs.isVisible() == true) {
+					txtAgeStatic.setVisible(false);
+					lblAgeStatic.setVisible(false);
+					txtArea.setVisible(true);
+					txtAreaMartyrs.setVisible(false);
+				}
+
+				txtAgeStatic.setLayoutX(300);
+				txtAgeStatic.setLayoutY(100);
+				lblAgeStatic.setLayoutX(230);
+				lblAgeStatic.setLayoutY(100);
+				lblAgeStatic.setStyle("-fx-text-fill:#cd9b05;-fx-font-size:12");
+
+				txtArea.setPrefHeight(320);
+				txtArea.setPrefWidth(450);
+				txtArea.setLayoutY(130);
+				txtArea.setLayoutX(230);
+				btnPev.setVisible(true);
+				btnNext.setVisible(true);
+
+				btnPev.setStyle(
+						"-fx-background-color:black;-fx-border-color:white;-fx-background-radius:10 50 10 50;-fx-border-radius:10 50 10 50;-fx-text-fill:f2bd12");
+				font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+				btnPev.setFont(font);
+				btnPev.setLayoutY(460);
+				btnPev.setLayoutX(250);
+				btnNext.setStyle(
+						"-fx-background-color:black;-fx-border-color:white;-fx-background-radius:10 50 10 50;-fx-border-radius:10 50 10 50;-fx-text-fill:f2bd12");
+				font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+				btnNext.setFont(font);
+				btnNext.setLayoutY(460);
+				btnNext.setLayoutX(600);
+
+				if (txtLocation.getText().isEmpty()) { // if the text field is empty
+					txtArea.setVisible(false);
+					btnNext.setVisible(false);
+					btnPev.setVisible(false);
+					lblAgeStatic.setVisible(false);
+					txtAgeStatic.setVisible(false);
+					new Warning("Please enter the location");
+
+				} else { // if text filed location not empty
+					NodeDoubleLinkedList nodeDouble = GUI.data.search(txtLocation.getText());
+					NodeSigleLinkedList nodeSingel = nodeDouble.getListMartyrs().getFirst();
+
+					boolean[] temp = new boolean[nodeDouble.getListMartyrs().size()];
+					for (int i = 0; i < nodeDouble.getListMartyrs().size(); i++) {
+						int countAge = 1;
+						if (temp[i] == true) {
+							nodeSingel = nodeSingel.getNext();
+							continue;
+
+						}
+						NodeSigleLinkedList nodeSinge2 = nodeSingel.getNext();
+
+						for (int j = i + 1; j < nodeDouble.getListMartyrs().size(); j++) {
+							if (nodeSingel.getObjMartyrs().getAge() == nodeSinge2.getObjMartyrs().getAge()) {
+								countAge++;
+								temp[j] = true;
+							}
+							nodeSinge2 = nodeSinge2.getNext();
+						}
+						nodeSingel = nodeSingel.getNext();
+
+						txtAgeStatic.setText(String.valueOf(nodeSingel.getObjMartyrs().getAge()+" "+countAge));
+					}
+				}
+			});
+			
+			
+			
+			
+			
+			
+			//			rdButton1.setVisible(true);
+//			rdButton2.setVisible(true);
+//			rdButton3.setVisible(true);
+//			rdButton4.setVisible(true);
+//
+//			rdButton1.setStyle("-fx-text-fill:cd9b05;-fx-font-size:15");
+//			rdButton1.setLayoutX(250);
+//			rdButton1.setLayoutY(50);
+//
+//			rdButton2.setStyle("-fx-text-fill:cd9b05;-fx-font-size:15");
+//			rdButton2.setLayoutX(350);
+//			rdButton2.setLayoutY(50);
+//
+//			rdButton3.setStyle("-fx-text-fill:cd9b05;-fx-font-size:15");
+//			rdButton3.setLayoutX(450);
+//			rdButton3.setLayoutY(50);
+//
+//			rdButton4.setStyle("-fx-text-fill:cd9b05;-fx-font-size:15");
+//			rdButton4.setLayoutX(550);
+//			rdButton4.setLayoutY(50);
+//
+//			rdButton1.setToggleGroup(group);
+//			rdButton2.setToggleGroup(group);
+//			rdButton3.setToggleGroup(group);
+//			rdButton4.setToggleGroup(group);
+
+
+
+
+
+btnPev.setStyle(
+					"-fx-background-color:black;-fx-border-color:white;-fx-background-radius:10 50 10 50;-fx-border-radius:10 50 10 50;-fx-text-fill:f2bd12");
+			font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+			btnPev.setFont(font);
+			btnPev.setPrefHeight(27);
+			btnPev.setPrefWidth(102);
+			btnPev.setLayoutX(210);
+			btnPev.setLayoutY(90);
+
+			btnNext.setStyle(
+					"-fx-background-color:black;-fx-border-color:white;-fx-background-radius:10 50 10 50;-fx-border-radius:10 50 10 50;-fx-text-fill:f2bd12");
+			font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+			btnNext.setFont(font);
+			btnNext.setPrefHeight(27);
+			btnNext.setPrefWidth(102);
+			btnNext.setLayoutX(550);
+			btnNext.setLayoutY(90);
+
+			txtLocation.setEditable(false);
+
+			lblLocatione.setLayoutX(215);
+			lblLocatione.setLayoutY(10);
+			txtLocation.setLayoutX(300);
+			txtLocation.setLayoutY(10);
+
+			lblLocatione.setVisible(true);
+			txtLocation.setVisible(true);
+
+			if (txtArea.isVisible() == false) {
+				txtArea.setVisible(true);
+			}
+
+			if (btnActionSave.isVisible() || txtpath.isVisible() || txtAreaMartyrs.isVisible()) {
+				btnActionSave.setVisible(false);
+				txtpath.setVisible(false);
+				txtAreaMartyrs.setVisible(false);
+
+			}
+			btnNext.setVisible(true);
+			btnPev.setVisible(true);
+			txtName.setVisible(false);
+			txtDate.setVisible(false);
+			lblAge.setVisible(false);
+			txtAge.setVisible(false);
+			txtGender.setVisible(false);
+			txtStatsu.setVisible(false);
+			lblName.setVisible(false);
+			lblDate.setVisible(false);
+			lblGender.setVisible(false);
+			lblstatus.setVisible(false);
+			txtLocation.setVisible(true);
+			lblLocatione.setVisible(true);
+			btnInsert.setVisible(false);
+			btnDelete.setVisible(false);
+			btnUpdate.setVisible(false);
+			btnSearch.setVisible(false);
+			txtAreaMartyrs.setVisible(false);
+			;
+			if (lblName.isVisible() || txtDate.isVisible() || lblAge.isVisible() || txtAge.isVisible()
+					|| txtGender.isVisible() || txtStatsu.isVisible() || lblName.isVisible() || lblDate.isVisible()
+					|| lblGender.isVisible() || lblstatus.isVisible() || txtLocation.isVisible()
+					|| lblLocatione.isVisible() || btnInsert.isVisible() || btnDelete.isVisible()
+					|| btnUpdate.isVisible() || btnSearch.isVisible()) {
+				txtName.setVisible(false);
+				txtDate.setVisible(false);
+				lblAge.setVisible(false);
+				txtAge.setVisible(false);
+				txtGender.setVisible(false);
+				txtStatsu.setVisible(false);
+				lblName.setVisible(false);
+				lblDate.setVisible(false);
+				lblGender.setVisible(false);
+				lblstatus.setVisible(false);
+				txtLocation.setVisible(true);
+				lblLocatione.setVisible(true);
+				btnInsert.setVisible(false);
+				btnDelete.setVisible(false);
+				btnUpdate.setVisible(false);
+				btnSearch.setVisible(false);
+			}
+			lblAge.setFont(font);
+			txtArea.setPrefHeight(320);
+			txtArea.setPrefWidth(450);
+			txtArea.setLayoutY(130);
+			txtArea.setLayoutX(230);
+			txtArea.setVisible(true);
+
+			NodeDoubleLinkedList nodeDouble = GUI.data.search(txtLocation.getText());
+			txtArea.clear();
+			countAges(nodeDouble);
+			countGender(nodeDouble, txtArea, null);
+			getAVG(nodeDouble);
+			maxDate(nodeDouble);
+			NodeDoubleLinkedList[] locNode = { nodeDouble };
+			btnNext.setOnAction(t -> {
+				txtArea.clear();
+				locNode[0] = locNode[0].getNext();
+				txtLocation.setText(locNode[0].getLocation());
+				countAges(locNode[0]);
+				countGender(locNode[0], txtArea, null);
+				getAVG(locNode[0]);
+				maxDate(locNode[0]);
+			});
+
+			btnPev.setOnAction(f -> {
+				txtArea.clear();
+				locNode[0] = locNode[0].getPrevious();
+				txtLocation.setText(locNode[0].getLocation());
+				countAges(locNode[0]);
+				countGender(locNode[0], txtArea, null);
+				getAVG(locNode[0]);
+				maxDate(locNode[0]);
+			});
+			
+			
+		btnMartyrs.setOnAction(e -> {
+
+			txtLocation.setEditable(false);
+			lblName.setText("Name");
+
+			lblLocatione.setLayoutX(225);
+			lblLocatione.setLayoutY(61);
+			txtLocation.setLayoutX(301);
+			txtLocation.setLayoutY(59);
+
+			lblName.setStyle("-fx-text-fill:cd9b05;-fx-font-size:15");
+			lblName.setLayoutX(225);
+			lblName.setLayoutY(98);
+			txtName.setPrefHeight(25);
+			txtName.setPrefWidth(370);
+			txtName.setLayoutX(301);
+			txtName.setLayoutY(98);
+
+			lblAge.setStyle("-fx-text-fill:cd9b05;-fx-font-size:15");
+			lblAge.setLayoutX(225);
+			lblAge.setLayoutY(135);
+			txtAge.setPrefHeight(25);
+			txtAge.setPrefWidth(370);
+			txtAge.setLayoutX(301);
+			txtAge.setLayoutY(137);
+
+			lblDate.setStyle("-fx-text-fill:cd9b05;-fx-font-size:15");
+			lblDate.setLayoutX(225);
+			lblDate.setLayoutY(172);
+			txtDate.setPrefHeight(25);
+			txtDate.setPrefWidth(370);
+			txtDate.setLayoutX(301);
+			txtDate.setLayoutY(176);
+
+			lblGender.setStyle("-fx-text-fill:cd9b05;-fx-font-size:15");
+			lblGender.setLayoutX(225);
+			lblGender.setLayoutY(209);
+			txtGender.setPrefHeight(25);
+			txtGender.setPrefWidth(370);
+			txtGender.setLayoutX(301);
+			txtGender.setLayoutY(215);
+
+			lblstatus.setStyle("-fx-text-fill:cd9b05;-fx-font-size:15");
+			lblstatus.setLayoutX(225);
+			lblstatus.setLayoutY(246);
+			txtStatsu.setPrefHeight(25);
+			txtStatsu.setPrefWidth(370);
+			txtStatsu.setLayoutX(301);
+			txtStatsu.setLayoutY(254);
+
+//			btnNext.setVisible(true);
+//			btnPev.setVisible(true);
+//			
+//			btnNext.setPrefHeight(27);
+//			btnPev.setPrefWidth(102);
+//			btnNext.setLayoutX(580);
+//			btnPev.setLayoutY(360);
+
+			if (txtName.isVisible() == false || txtDate.isVisible() == false || lblAge.isVisible() == false
+					|| txtAge.isVisible() == false || txtAge.isVisible() == false || txtGender.isVisible() == false
+					|| txtStatsu.isVisible() == false || lblName.isVisible() == false || lblDate.isVisible() == false
+					|| lblGender.isVisible() == false || lblstatus.isVisible() == false
+
+					|| txtAreaMartyrs.isVisible() == true || txtArea.isVisible() == true) {
+				txtArea.setVisible(false);
+				txtAreaMartyrs.setVisible(false);
+				txtName.setVisible(true);
+				txtDate.setVisible(true);
+				lblAge.setVisible(true);
+				txtAge.setVisible(true);
+				txtGender.setVisible(true);
+				txtStatsu.setVisible(true);
+				lblName.setVisible(true);
+				lblDate.setVisible(true);
+				lblGender.setVisible(true);
+				lblstatus.setVisible(true);
+
+			}
+
+			if (txtAgeStatic.isVisible() || txtAgeStatic.isVisible() || lblAgeStatic.isVisible() || btnNext.isVisible()
+					|| btnPev.isVisible()) {
+				txtArea.setVisible(false);
+				btnNext.setVisible(false);
+				btnPev.setVisible(false);
+				lblAgeStatic.setVisible(false);
+				txtAgeStatic.setVisible(false);
+
+			}
+			btnInsert.setVisible(true);
+			btnDelete.setVisible(true);
+			btnUpdate.setVisible(true);
+			btnSearch.setVisible(true);
+
+			if (btnInsert.isVisible() == false || btnDelete.isVisible() == false || btnUpdate.isVisible() == false
+					|| btnSearch.isVisible() == false) {
+				btnInsert.setVisible(true);
+				btnDelete.setVisible(true);
+				btnUpdate.setVisible(true);
+				btnSearch.setVisible(true);
+
+			}
+
+			txtName.setVisible(true);
+			txtDate.setVisible(true);
+			lblAge.setVisible(true);
+			txtAge.setVisible(true);
+			txtGender.setVisible(true);
+			txtStatsu.setVisible(true);
+			lblName.setVisible(true);
+			lblDate.setVisible(true);
+			lblGender.setVisible(true);
+			lblstatus.setVisible(true);
+			lblLocatione.setVisible(true);
+			txtLocation.setVisible(true);
+			txtArea.setVisible(false);
+			txtAreaMartyrs.setVisible(false);
+
+			txtLocation.setText(txtLocation.getText());
+			btnInsert.setStyle(
+					"-fx-background-color:black;-fx-border-color:white;-fx-background-radius:10 50 10 50;-fx-border-radius:10 50 10 50;-fx-text-fill:f2bd12");
+			font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+			btnInsert.setFont(font);
+			btnInsert.setPrefHeight(27);
+			btnInsert.setPrefWidth(102);
+			btnInsert.setLayoutX(580);
+			btnInsert.setLayoutY(400);
+
+			btnInsert.setOnAction(e2 -> {
+				if (txtName.isVisible() == false || txtDate.isVisible() == false || lblAge.isVisible() == false
+						|| txtAge.isVisible() == false || txtAge.isVisible() == false || txtGender.isVisible() == false
+						|| txtStatsu.isVisible() == false || lblName.isVisible() == false
+						|| lblDate.isVisible() == false || lblGender.isVisible() == false
+
+						|| txtAreaMartyrs.isVisible() == true || txtArea.isVisible() == true) {
+					txtName.setVisible(true);
+					txtDate.setVisible(true);
+					lblAge.setVisible(true);
+					txtAge.setVisible(true);
+					txtGender.setVisible(true);
+					txtStatsu.setVisible(true);
+					lblName.setVisible(true);
+					lblDate.setVisible(true);
+					lblGender.setVisible(true);
+					lblstatus.setVisible(true);
+
+					txtAreaMartyrs.setVisible(false);
+					txtArea.setVisible(false);
+				}
+
+				NodeDoubleLinkedList node = GUI.data.search(txtLocation.getText());
+				if (node != null) {
+					if (txtName.getText().isEmpty() || txtAge.getText().isEmpty() || txtDate.getText().isEmpty()
+							|| txtGender.getText().isEmpty() || txtStatsu.getText().isEmpty()) {
+						new Warning("Please set your info");
+					} else {
+						NodeSigleLinkedList nodeSingel = new NodeSigleLinkedList(
+								new Martyrs(txtName.getText(), Integer.parseInt(txtAge.getText()), new Date(),
+										txtGender.getText().charAt(0), txtStatsu.getText()));
+						node.getListMartyrs().addNodeSorted(nodeSingel);
+						new Warning("Added successfully");
+					}
+				} else {
+					new Warning("Not found this location");
+				}
+			});
+
+			btnDelete.setStyle(
+					"-fx-background-color:black;-fx-border-color:white;-fx-background-radius:10 50 10 50;-fx-border-radius:10 50 10 50;-fx-text-fill:f2bd12");
+			font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+			btnDelete.setFont(font);
+			btnDelete.setPrefHeight(27);
+			btnDelete.setPrefWidth(102);
+			btnDelete.setLayoutX(460);
+			btnDelete.setLayoutY(400);
+			btnDelete.setOnAction(e2 -> {
+				lblName.setText("Name");
+				if (txtAreaMartyrs.isVisible() == true || txtArea.isVisible() == true || txtName.isVisible() == false
+						|| lblName.isVisible() == false || lblAge.isVisible() == false || txtAge.isVisible() == false
+						|| lblGender.isVisible() == false || txtGender.isVisible() == false
+						|| lblstatus.isVisible() == false || txtStatsu.isVisible() == false
+						|| lblDate.isVisible() == false || txtDate.isVisible() == false) {
+					txtName.setVisible(true);
+					lblName.setVisible(true);
+					lblAge.setVisible(true);
+					txtAge.setVisible(true);
+					lblGender.setVisible(true);
+					txtGender.setVisible(true);
+					lblstatus.setVisible(true);
+					txtStatsu.setVisible(true);
+					lblDate.setVisible(true);
+					txtDate.setVisible(true);
+
+					txtAreaMartyrs.setVisible(false);
+					txtArea.setVisible(false);
+				}
+				NodeDoubleLinkedList node = new NodeDoubleLinkedList(txtLocation.getText());
+				NodeSigleLinkedList nodSingel = node.getListMartyrs().getFirst();
+				SimpleDateFormat format = new SimpleDateFormat("d/mm/yyyy");
+				Date date = null;
+				try {
+					date = format.parse(txtDate.getText());
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				if (GUI.data.search(node.getLocation()) != null) {
+					if (txtName.getText().isEmpty() || txtAge.getText().isEmpty() || txtDate.getText().isEmpty()
+							|| txtGender.getText().isEmpty() || txtStatsu.getText().isEmpty()) {
+						new Warning("Please set your info");
+
+					} else {
+						// node.getListMartyrs().removObj(nodSingel.setObjMartyrs(nodSingel.getObjMartyrs().set));
+
+//						node.getListMartyrs()
+//								.removObj(new NodeSigleLinkedList(new Martyrs(txtName.getText(), Integer.parseInt(txtAge.getText()), date,txtGender.getText().charAt(0), txtStatsu.getText())));
+//						new Warning("Deleted successfully");
+
+					}
+				} else {
+					if (node.getListMartyrs().equals(null)) {
+						new Warning("NO record for this location");
+					}
+					new Warning("Not found this location");
+				}
+
+				GUI.data.printList();
+				// node.getListMartyrs().printList();
+			});
+
+			btnSearch.setStyle(
+					"-fx-background-color:black;-fx-border-color:white;-fx-background-radius:10 50 10 50;-fx-border-radius:10 50 10 50;-fx-text-fill:f2bd12");
+			font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+			btnSearch.setFont(font);
+			btnSearch.setPrefHeight(27);
+			btnSearch.setPrefWidth(102);
+			btnSearch.setLayoutX(340);
+			btnSearch.setLayoutY(400);
+
+			btnSearch.setOnAction(e2 -> {
+
+				txtName.clear();
+
+				lblName.setText("Part Name");
+				if (txtArea.isVisible()) {
+					txtArea.setVisible(false);
+				}
+
+				lblName.setVisible(true);
+				txtName.setVisible(true);
+				lblAge.setVisible(false);
+				txtAge.setVisible(false);
+				lblDate.setVisible(false);
+				txtDate.setVisible(false);
+				lblGender.setVisible(false);
+				txtGender.setVisible(false);
+				lblstatus.setVisible(false);
+				txtStatsu.setVisible(false);
+				txtAreaMartyrs.setLayoutX(230);
+				txtAreaMartyrs.setLayoutY(150);
+				txtAreaMartyrs.setPrefWidth(440);
+				txtAreaMartyrs.setVisible(true);
+
+				txtName.setOnAction(e3 -> {
+					NodeDoubleLinkedList node = GUI.data.search(txtLocation.getText());
+					if (node == null) {
+						new Warning("Not Foud location");
+					} else {
+						SingelLinkedList singelList = node.getListMartyrs().search(txtName.getText().trim());
+						if (singelList.size() != 0) {
+							txtAreaMartyrs.setText(singelList.toString());
+							txtName.clear();
+							txtStatsu.clear();
+							txtAge.clear();
+							txtDate.clear();
+							txtGender.clear();
+						} else {
+							new Warning("Not Found Thes name");
+						}
+					}
+
+				});
+
+			});
+
+			btnUpdate.setStyle(
+					"-fx-background-color:black;-fx-border-color:white;-fx-background-radius:10 50 10 50;-fx-border-radius:10 50 10 50;-fx-text-fill:f2bd12");
+			font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+			btnUpdate.setFont(font);
+			btnUpdate.setPrefHeight(27);
+			btnUpdate.setPrefWidth(102);
+			btnUpdate.setLayoutX(220);
+			btnUpdate.setLayoutY(400);
+
+			btnUpdate.setOnAction(e2 -> {
+
+				if (txtAreaMartyrs.isVisible() == true || lblAge.isVisible() == false || lblGender.isVisible() == false
+						|| lblstatus.isVisible() == false || lblDate.isVisible() == false || txtAge.isVisible() == false
+						|| txtDate.isVisible() == false || txtGender.isVisible() == false
+						|| txtStatsu.isVisible() == false) {
+					lblAge.setVisible(true);
+					lblGender.setVisible(true);
+					lblstatus.setVisible(true);
+					lblDate.setVisible(true);
+					txtAge.setVisible(true);
+					txtDate.setVisible(true);
+					txtGender.setVisible(true);
+					txtStatsu.setVisible(true);
+					txtAreaMartyrs.setVisible(false);
+					txtArea.setVisible(false);
+
+				}
+				if (txtArea.isVisible()) {
+					txtArea.setVisible(false);
+				}
+				if (txtLocation.getText().isEmpty()) {
+					new Warning("Please Enter the Location");
+				} else {
+					if (GUI.data.search(txtLocation.getText()).getListMartyrs().equals(null)) {
+						new Warning("Not Found Record");
+
+					} else {
+						txtName.setText(GUI.data.search(txtLocation.getText()).getListMartyrs().getFirst()
+								.getObjMartyrs().getName());
+//						 txtAge.setText(GUI.data.search(txtLocation.getText()).getListMartyrs().getFirst().getObjMartyrs().getAge());
+//						 txtGender.setText(GUI.data.search(txtLocation.getText()).getListMartyrs().getFirst().getObjMartyrs().getGender());
+//						 txtDate.setText(GUI.data.search(txtLocation.getText()).getListMartyrs().getFirst().getObjMartyrs().getDateOfDeath());
+						txtStatsu.setText(GUI.data.search(txtLocation.getText()).getListMartyrs().getFirst()
+								.getObjMartyrs().getPersonalStatus());
+					}
+				}
+			});
+
+		});
+		
+		
+			////////////////////////////////////// * * * * * * location * ** ** * * ** * *
+		////////////////////////////////////// ///////////////////////
+
+		btnLocation.setOnAction(e -> {
+			txtLocation.setEditable(true);
+
+			lblLocatione.setLayoutX(225);
+			lblLocatione.setLayoutY(61);
+			txtLocation.setLayoutX(301);
+			txtLocation.setLayoutY(59);
+			btnSearch.setVisible(false);
+
+			if (txtAgeStatic.isVisible() || txtAgeStatic.isVisible() || lblAgeStatic.isVisible() || btnNext.isVisible()
+					|| btnPev.isVisible() || txtAreaMartyrs.isVisible() || txtArea.isVisible()) {
+				txtAreaMartyrs.setVisible(false);
+
+				txtArea.setVisible(false);
+				btnNext.setVisible(false);
+				btnPev.setVisible(false);
+				lblAgeStatic.setVisible(false);
+				txtAgeStatic.setVisible(false);
+
+			}
+			if (lblName.isVisible() || txtName.isVisible() || lblAge.isVisible() || txtAge.isVisible()
+					|| lblDate.isVisible() || txtDate.isVisible() || lblGender.isVisible() || txtGender.isVisible()
+					|| lblstatus.isVisible() || txtStatsu.isVisible() || btnInsert.isVisible() || btnDelete.isVisible()
+					|| btnSearch.isVisible() || btnStatistic.isVisible()) {
+
+				txtName.setVisible(false);
+				txtDate.setVisible(false);
+				lblAge.setVisible(false);
+				txtAge.setVisible(false);
+				txtGender.setVisible(false);
+				txtStatsu.setVisible(false);
+				lblName.setVisible(false);
+				lblDate.setVisible(false);
+				lblGender.setVisible(false);
+				lblstatus.setVisible(false);
+				txtLocation.setVisible(true);
+				lblLocatione.setVisible(true);
+				btnInsert.setVisible(true);
+				btnDelete.setVisible(true);
+				btnUpdate.setVisible(true);
+				btnSearch.setVisible(true);
+			}
+
+			lblLocatione.setVisible(true);
+			txtLocation.setVisible(true);
+			btnInsert.setVisible(true);
+			btnDelete.setVisible(true);
+			btnSearch.setVisible(true);
+			btnUpdate.setVisible(true);
+
+			btnUpdate.setStyle(
+					"-fx-background-color:black;-fx-border-color:white;-fx-background-radius:10 50 10 50;-fx-border-radius:10 50 10 50;-fx-text-fill:f2bd12");
+			font = Font.font("Arial Black", FontPosture.REGULAR, 10);
+			btnUpdate.setFont(font);
+			btnUpdate.setPrefHeight(27);
+			btnUpdate.setPrefWidth(102);
+			btnUpdate.setLayoutX(220);
+			btnUpdate.setLayoutY(400);
+			btnUpdate.setOnAction(e2 -> {
+				if (txtAreaMartyrs.isVisible() == true || txtAreaMartyrs.isVisible() == true || txtArea.isVisible()) {
+					txtAreaMartyrs.setVisible(false);
+					txtArea.setVisible(false);
+					txtArea.setVisible(false);
+
+				}
+				if (lblName.isVisible() == false && txtName.isVisible() == false) {
+					lblName.setStyle("-fx-text-fill:cd9b05;-fx-font-size:15");
+					lblName.setLayoutX(225);
+					lblName.setLayoutY(98);
+					txtName.setPrefHeight(25);
+					txtName.setPrefWidth(370);
+					txtName.setLayoutX(301);
+					txtName.setLayoutY(98);
+					lblName.setText("New Name \n Location");
+					txtName.setVisible(true);
+					lblName.setVisible(true);
+				}
+				if (txtLocation.getText().isEmpty()) {
+					lblName.setVisible(false);
+					txtName.setVisible(false);
+					new Warning("Please Enter the Location");
+
+				}
+			});
+
+		});
+			

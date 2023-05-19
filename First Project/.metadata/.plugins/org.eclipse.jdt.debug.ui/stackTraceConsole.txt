@@ -1,0 +1,7 @@
+lblName.setStyle("-fx-text-fill:cd9b05;-fx-font-size:15");
+			lblName.setLayoutX(225);
+			lblName.setLayoutY(98);
+			txtName.setPrefHeight(25);
+			txtName.setPrefWidth(370);
+			txtName.setLayoutX(301);
+			txtName.setLayoutY(98);
