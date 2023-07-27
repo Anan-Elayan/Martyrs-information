@@ -2,7 +2,7 @@ package Martyrs;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-
+import java.sql.*;
 public class Driver extends Application {
 
 	GUI objGUI;
@@ -10,6 +10,7 @@ public class Driver extends Application {
 	@Override
 	public void start(Stage MainStage) throws Exception {
 
+		
 		// First Window
 		objGUI = new GUI(MainStage);
 		MainStage.setResizable(false);

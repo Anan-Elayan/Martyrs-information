@@ -135,6 +135,7 @@ public class GUI extends Pane {
 							NodeDoubleLinkedList newNodeDouble = new NodeDoubleLinkedList(location);
 							newNodeDouble.getListMartyrs().addNodeSorted(newNodeSingle);
 							data.addNodeSorted(newNodeDouble);
+//							data.printList();
 
 						} else {//exit location
 							node.getListMartyrs().addNodeSorted(newNodeSingle);
@@ -148,6 +149,8 @@ public class GUI extends Pane {
 				}
 			}
 
+		
+			
 			catch (FileNotFoundException e1) {
 			}
 
